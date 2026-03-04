@@ -473,7 +473,8 @@ elif "阅读练习" in page:
             
             for idx, question in enumerate(questions):
                 user_answer = st.session_state.reading_answers.get(idx, 0)
-                correct_answer = question['correct_answer']
+                # 兼容两种字段名：answer 和 correct_answer
+                correct_answer = question.get('correct_answer', question.get('answer', 0))
                 is_correct = (user_answer == correct_answer)
                 
                 if is_correct:
