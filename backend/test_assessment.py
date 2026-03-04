@@ -23,7 +23,7 @@ class TestAssessmentAPI:
     
     def connect(self):
         if not self.conn:
-            self.conn = sqlite3.connect(self.db_path)
+            self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
             self.conn.row_factory = sqlite3.Row
     
     def close(self):
@@ -36,7 +36,7 @@ class TestAssessmentAPI:
         user_id: int,
         category: Optional[str] = None,
         difficulty: Optional[int] = None,
-        question_count: int = 20
+        count: int = 20
     ) -> Dict:
         """生成词汇测试"""
         self.connect()

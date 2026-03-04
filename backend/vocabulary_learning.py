@@ -22,7 +22,7 @@ class VocabularyLearningAPI:
     
     def connect(self):
         if not self.conn:
-            self.conn = sqlite3.connect(self.db_path)
+            self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
             self.conn.row_factory = sqlite3.Row
     
     def close(self):

@@ -33,9 +33,9 @@ def init_database():
     with open(SCHEMA_PATH, 'r', encoding='utf-8') as f:
         schema_sql = f.read()
     
-    # 创建数据库连接
+    # 创建数据库连接（支持多线程）
     print(f"[INFO] 创建数据库: {DB_PATH}")
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     cursor = conn.cursor()
     
     # 执行schema

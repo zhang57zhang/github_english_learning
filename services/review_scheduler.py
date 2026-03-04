@@ -25,7 +25,7 @@ class ReviewScheduler:
     def connect(self):
         """连接数据库"""
         if not self.conn:
-            self.conn = sqlite3.connect(self.db_path)
+            self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
             self.conn.row_factory = sqlite3.Row  # 使用字典方式访问
     
     def close(self):

@@ -23,7 +23,7 @@ class ReadingComprehensionAPI:
     
     def connect(self):
         if not self.conn:
-            self.conn = sqlite3.connect(self.db_path)
+            self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
             self.conn.row_factory = sqlite3.Row
     
     def close(self):
@@ -31,7 +31,7 @@ class ReadingComprehensionAPI:
             self.conn.close()
             self.conn = None
     
-    def get_readme_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_readme_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取README练习"""
         exercises = []
         
@@ -136,7 +136,7 @@ python app.py
         
         return exercises
     
-    def get_issue_pr_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_issue_pr_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取Issue/PR练习"""
         exercises = [
             {
@@ -207,7 +207,7 @@ Author @developer1:
         
         return exercises
     
-    def get_code_comment_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_code_comment_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取代码注释练习"""
         exercises = [
             {
