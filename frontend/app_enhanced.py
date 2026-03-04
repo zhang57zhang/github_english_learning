@@ -523,7 +523,11 @@ elif "阅读练习" in page:
             
             # 清除当前练习
             if st.button("开始新练习"):
-                del st.session_state.current_exercise
+                if 'current_exercise' in st.session_state:
+                    del st.session_state.current_exercise
+                if 'reading_answers' in st.session_state:
+                    del st.session_state.reading_answers
+                st.success("✅ 已清除，请点击'开始练习'生成新练习")
                 st.rerun()
 
 # ============ 测试评估 ============
@@ -555,17 +559,20 @@ elif "测试评估" in page:
             try:
                 if "词汇" in test_type:
                     test = api.generate_vocabulary_test(
-                        st.session_state.user_id,
-                        category if category != "全部" else None,
-                        difficulty,
-                        20
+                        user_id=st.session_state.user_id,
+                        category=category if category != "全部" else None,
+                        difficulty=difficulty,
+                        count=20
                     )
                 elif "阅读" in test_type:
-                    test = api.generate_reading_test(difficulty, 10)
+                    test = api.generate_reading_test(
+                        difficulty=difficulty,
+                        count=10
+                    )
                 else:
                     test = api.generate_comprehensive_test(
-                        st.session_state.user_id,
-                        category if category != "全部" else None
+                        user_id=st.session_state.user_id,
+                        category=category if category != "全部" else None
                     )
                 
                 st.session_state.current_test = test
