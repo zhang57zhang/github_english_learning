@@ -209,7 +209,7 @@ class ReviewScheduler:
             ease_factor = record['ease_factor']
             
             # 计算下次复习时间
-            from .forgetting_curve import ForgettingCurveAlgorithm
+            from algorithms.forgetting_curve import ForgettingCurveAlgorithm
             algo = ForgettingCurveAlgorithm()
             
             review_result = 'correct' if is_correct else 'wrong'

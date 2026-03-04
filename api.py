@@ -61,32 +61,32 @@ class GitHubEnglishLearningAPI:
     
     # ==================== 阅读理解API ====================
     
-    def get_readme_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_readme_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取README练习"""
-        return self.reading.get_readme_exercises(difficulty)
+        return self.reading.get_readme_exercises(difficulty, limit)
     
-    def get_issue_pr_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_issue_pr_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取Issue/PR练习"""
-        return self.reading.get_issue_pr_exercises(difficulty)
+        return self.reading.get_issue_pr_exercises(difficulty, limit)
     
-    def get_code_comment_exercises(self, difficulty: int = 1) -> List[Dict]:
+    def get_code_comment_exercises(self, difficulty: int = 1, limit: int = 10) -> List[Dict]:
         """获取代码注释练习"""
-        return self.reading.get_code_comment_exercises(difficulty)
+        return self.reading.get_code_comment_exercises(difficulty, limit)
     
-    def get_random_exercise(self, difficulty: int = 1) -> Dict:
+    def get_random_exercise(self, difficulty: int = 1, limit: int = 1) -> Dict:
         """获取随机练习"""
-        return self.reading.get_random_exercise(difficulty)
+        return self.reading.get_random_exercise(difficulty, limit)
     
     # ==================== 测试评估API ====================
     
     def generate_vocabulary_test(self, user_id: int, category: Optional[str] = None, 
-                                 difficulty: Optional[int] = None, question_count: int = 20) -> Dict:
+                                 difficulty: Optional[int] = None, count: int = 20) -> Dict:
         """生成词汇测试"""
-        return self.test.generate_vocabulary_test(user_id, category, difficulty, question_count)
+        return self.test.generate_vocabulary_test(user_id, category, difficulty, count)
     
-    def generate_reading_test(self, difficulty: int = 1, question_count: int = 10) -> Dict:
+    def generate_reading_test(self, difficulty: int = 1, count: int = 10) -> Dict:
         """生成阅读测试"""
-        return self.test.generate_reading_test(difficulty, question_count)
+        return self.test.generate_reading_test(difficulty, count)
     
     def generate_comprehensive_test(self, user_id: int, category: Optional[str] = None) -> Dict:
         """生成综合考核"""

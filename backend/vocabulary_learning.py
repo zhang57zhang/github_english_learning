@@ -41,7 +41,19 @@ class VocabularyLearningAPI:
         
         row = cursor.fetchone()
         if row:
-            return dict(row)
+            word_dict = dict(row)
+            # 解析JSON字段
+            if word_dict.get('synonyms') and isinstance(word_dict['synonyms'], str):
+                try:
+                    word_dict['synonyms'] = json.loads(word_dict['synonyms'])
+                except:
+                    word_dict['synonyms'] = []
+            if word_dict.get('antonyms') and isinstance(word_dict['antonyms'], str):
+                try:
+                    word_dict['antonyms'] = json.loads(word_dict['antonyms'])
+                except:
+                    word_dict['antonyms'] = []
+            return word_dict
         return None
     
     def get_words_by_category(
@@ -61,7 +73,8 @@ class VocabularyLearningAPI:
             LIMIT ? OFFSET ?
         """, (category, limit, offset))
         
-        return [dict(row) for row in cursor.fetchall()]
+        words = [dict(row) for row in cursor.fetchall()]
+        return [self._parse_word_json(word) for word in words]
     
     def get_learning_words(
         self,
@@ -113,7 +126,23 @@ class VocabularyLearningAPI:
                 LIMIT ?
             """, (user_id, limit))
         
-        return [dict(row) for row in cursor.fetchall()]
+        words = [dict(row) for row in cursor.fetchall()]
+        # 解析JSON字段
+        return [self._parse_word_json(word) for word in words]
+    
+    def _parse_word_json(self, word_dict: Dict) -> Dict:
+        """解析词汇的JSON字段"""
+        if word_dict.get('synonyms') and isinstance(word_dict['synonyms'], str):
+            try:
+                word_dict['synonyms'] = json.loads(word_dict['synonyms'])
+            except:
+                word_dict['synonyms'] = []
+        if word_dict.get('antonyms') and isinstance(word_dict['antonyms'], str):
+            try:
+                word_dict['antonyms'] = json.loads(word_dict['antonyms'])
+            except:
+                word_dict['antonyms'] = []
+        return word_dict
     
     def submit_learning_result(
         self,
@@ -217,7 +246,8 @@ class VocabularyLearningAPI:
         sql += " ORDER BY frequency DESC LIMIT 50"
         
         cursor.execute(sql, params)
-        return [dict(row) for row in cursor.fetchall()]
+        words = [dict(row) for row in cursor.fetchall()]
+        return [self._parse_word_json(word) for word in words]
 
 
 # 测试
