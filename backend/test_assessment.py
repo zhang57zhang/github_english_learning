@@ -168,10 +168,10 @@ class TestAssessmentAPI:
         """生成综合考核（模拟真实场景）"""
         # 组合词汇测试和阅读测试
         vocab_test = self.generate_vocabulary_test(
-            user_id, category, question_count=15
+            user_id, category, count=15
         )
         
-        reading_test = self.generate_reading_test(difficulty=2, question_count=10)
+        reading_test = self.generate_reading_test(difficulty=2, count=10)
         
         # 合并测试
         all_questions = vocab_test['questions'] + reading_test['questions']

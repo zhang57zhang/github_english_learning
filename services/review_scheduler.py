@@ -249,7 +249,7 @@ class ReviewScheduler:
             
         else:
             # 创建新记录
-            from .forgetting_curve import ForgettingCurveAlgorithm
+            from algorithms.forgetting_curve import ForgettingCurveAlgorithm
             algo = ForgettingCurveAlgorithm()
             
             review_result = 'correct' if is_correct else 'wrong'
