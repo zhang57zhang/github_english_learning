@@ -1,30 +1,29 @@
 #!/bin/bash
-
 echo "===================================="
-echo "GitHub英语学习系统 - 启动中..."
+echo "GitHub English Learning System"
+echo "Starting..."
 echo "===================================="
-echo ""
+echo
 
-# 进入脚本所在目录
 cd "$(dirname "$0")"
 
-echo "[1/3] 检查Python环境..."
-if ! command -v python3 &> /dev/null; then
-    echo "❌ Python3未安装"
+echo "[1/3] Checking Python environment..."
+python3 --version
+if [ $? -ne 0 ]; then
+    echo "[ERROR] Python not found. Please install Python 3.11+"
     exit 1
 fi
-python3 --version
 
-echo ""
-echo "[2/3] 安装依赖..."
+echo
+echo "[2/3] Installing dependencies..."
 pip3 install streamlit plotly pandas -q
 
-echo ""
-echo "[3/3] 启动Streamlit应用..."
-echo ""
+echo
+echo "[3/3] Starting Streamlit application..."
+echo
 echo "===================================="
-echo "🌐 访问地址: http://localhost:8501"
+echo "Web URL: http://localhost:8501"
 echo "===================================="
-echo ""
+echo
 
 streamlit run frontend/app_enhanced.py --server.port 8501

@@ -169,7 +169,7 @@ if __name__ == "__main__":
         
         # 测试3: 测试评估
         print("\n[Test 3] Test Assessment")
-        test = api.generate_vocabulary_test(user_id=1, question_count=5)
+        test = api.generate_vocabulary_test(user_id=1, count=5)
         print(f"Vocabulary test: {test['question_count']} questions")
         
         # 测试4: 复习计划

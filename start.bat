@@ -1,32 +1,32 @@
 @echo off
-chcp 65001 >nul
 echo ====================================
-echo GitHub英语学习系统 - 启动中...
+echo GitHub English Learning System
+echo Starting...
 echo ====================================
 echo.
 
 cd /d "%~dp0"
 
-echo [1/3] 检查Python环境...
+echo [1/3] Checking Python environment...
 python --version
 if errorlevel 1 (
-    echo ❌ Python未安装或未添加到PATH
+    echo [ERROR] Python not found. Please install Python 3.11+
     pause
     exit /b 1
 )
 
 echo.
-echo [2/3] 安装依赖...
+echo [2/3] Installing dependencies...
 pip install streamlit plotly pandas -q
 if errorlevel 1 (
-    echo ⚠️ 依赖安装失败，但继续尝试启动
+    echo [WARN] Dependency installation failed, but continuing...
 )
 
 echo.
-echo [3/3] 启动Streamlit应用...
+echo [3/3] Starting Streamlit application...
 echo.
 echo ====================================
-echo 🌐 访问地址: http://localhost:8501
+echo Web URL: http://localhost:8501
 echo ====================================
 echo.
 
